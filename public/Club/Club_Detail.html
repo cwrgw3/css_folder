@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Club_Detail.css">
+        <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        var firebaseConfig = {
+          apiKey: "AIzaSyCrFuy6g93AKQUWW_mWDI0OK_As0X386io",
+          authDomain: "oryangcompany.firebaseapp.com",
+          projectId: "oryangcompany",
+          storageBucket: "oryangcompany.appspot.com",
+          messagingSenderId: "39452497785",
+          appId: "1:39452497785:web:79ccc25b73be2f819781a8"
+        };
+      
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+<body>
+    <div class="head-bar-section">
+        <a href="#"><img class="logo" src="https://firebasestorage.googleapis.com/v0/b/oryangcompany.appspot.com/o/1.png?alt=media&token=06f5bd93-afa6-44d5-bce3-77d6e6bb835b&_gl=1*1pykbqg*_ga*OTEyMjg3NjQwLjE2OTc4NDkwNDk.*_ga_CW55HF8NVT*MTY5Nzg2Mjc2OC40LjEuMTY5Nzg2OTQ4NS4xNC4wLjA"></a>
+        <a href="#"><p class="logoname">오량 주식 컴퍼니</p></a>
+        <input type="text" class="search-bar">
+        <div class="user-convein">
+          <button type="submit" class="head-bar search-button" ></button>
+          <button type="button" class="head-bar favorite-button"></button>
+          <button type="button" class="head-bar alarm-button"></button>
+          <a href="#"><button type="button" class="head-bar profile-button"></button></a>
+        </div> 
+    </div>
+    
+    <div class="menu-bar-section">
+        <a href="#"><p class="menu">소식</p> </a>
+        <a href="#"><p class="menu">거래</p> </a>
+        <a href="#"><p class="menu" style="color: #0060FF;">동아리 소개</p> </a>
+        <a href="#"><p class="menu">경매</p> </a>
+        <a href="#"><p class="menu">채팅</p> </a>
+    </div>
+
+
+    <div class="container">
+        <div class="mt-1">
+            <div class="photo"><img src="" alt=""></div>
+            <p class="dongari-title"></p>
+            <p class="dongari-exple"></p>
+        </div>
+        <div class="mt-2">
+            <p class="cg-title">추구방향성</p>
+            <p class="cg-exple"></p>
+        </div>
+        
+        <div class="mt-3">
+            <p class="sg-title">실적규모</p>
+            <div class="sg-container">    
+                <div class="day-selc">
+                    <p class="day-over">9월</p>
+                    <p class="day-main">2021년 10월</p>
+                    <p class="day-over">11월</p>
+                </div>
+                <div class="sg-box-container">
+                    <iframe id="performance_frame" src="Club_Performance_Scale.html" scrolling="no" width="875" height="400" style="border:none;"></iframe>
+                </div>
+            </div>
+           <div class="sg-sum-box">
+                <p class="sg-sum">1,6122,0000원</p>
+            </div>        
+        </div>
+        <div class="mt-4">
+            <p class="act-title">활동</p>
+            <div class="act-years" style="background-color: #0060FF;">
+                <p class="act-years-p">2023</p>
+            </div>
+            <div class="act-years" style="background-color: #6BA3FF;">
+                <p  class="act-years-p">2022</p>
+            </div>
+            <div class="act-container">
+                <div class="act-option">
+                    <div class="act-option-box">
+                        <div class="act-photo-box">
+                            <img src="" alt="사진" class="act-photo">
+                        </div>
+                        <p class="act-name">대회</p>
+                        <p class="act-explain">이 대회는 어쩌구저쩌구
+                            대전시에서 이번에 열리는 대회입니다dddd</p>
+                    </div>
+                    <div class="act-option-box">
+                        <div class="act-photo-box">
+                            <img src="" alt="사진" class="act-photo">
+                        </div>
+                        <p class="act-name">대회</p>
+                        <p class="act-explain">이 대회는 어쩌구저쩌구
+                            대전시에서 이번에 열리는 대회입니다dddd</p>
+                    </div>
+                    <div class="act-option-box">
+                        <div class="act-photo-box">
+                            <img src="" alt="사진" class="act-photo">
+                        </div>
+                        <p class="act-name">대회</p>
+                        <p class="act-explain">이 대회는 어쩌구저쩌구
+                            대전시에서 이번에 열리는 대회입니다dddd</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const db = firebase.firestore();
+        var query_string = new URLSearchParams(window.location.search);
+        document.getElementById("performance_frame").src = '/Club/Club_Performance_Scale.html?id=' + query_string.get('id');
+        db.collection('club').doc(query_string.get('id')).get().then((result)=>{
+            console.log(result);
+            $('.dongari-title').html(result.data().club_name)
+            $('.dongari-exple').html(result.data().long_content)
+            $('.cg-exple').html(result.data().purse)
+        })
+    </script>
+</body>
+</html>

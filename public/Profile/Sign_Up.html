@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="Sign_Up.css" rel = "stylesheet">
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyCrFuy6g93AKQUWW_mWDI0OK_As0X386io",
+            authDomain: "oryangcompany.firebaseapp.com",
+            projectId: "oryangcompany",
+            storageBucket: "oryangcompany.appspot.com",
+            messagingSenderId: "39452497785",
+            appId: "1:39452497785:web:79ccc25b73be2f819781a8"
+        };
+    
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <div class="mt-3">
+        <div>
+            <div class="title unsel-p"><p>로그인</p></div>
+            <div class="title sel-p"><p>계정 만들기</p></div>
+        </div>
+    </div>
+    <div class="container_input">
+        <div class="cbla">
+            <div class="input">
+                <input type="text" class="form-control" placeholder="닉네임을 입력하세요" id="name-new">
+            </div>
+            <div class="input">
+                <input type="email" class="form-control" placeholder="이메일 주소를 입력하세요" id="email-new">
+            </div>
+            <div class="input">
+                <input type="password" class="form-control" placeholder="계정의 비밀번호를 입력하세요" id="pw-new">
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <button type="submit" class="primary" id="register">가입하기</button>
+            </div>
+        </div>  
+    </div>
+    
+
+
+
+    <script>
+        $('#register').click(function(){
+            var email = $('#email-new').val();
+            var password = $('#pw-new').val();
+            var name = $('#name-new').val();
+            // console.log(firebase.auth().createUserWithEmailAndPassword(email, password));
+
+            firebase.auth().createUserWithEmailAndPassword(email, password).then((result)=>{
+                console.log(result.user)
+                result.user.updateProfile( {displayName : name} )
+            })
+        })
+    </script>
+</body>
+</html>

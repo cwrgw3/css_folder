@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="Sign_Up.css" rel = "stylesheet">
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyCrFuy6g93AKQUWW_mWDI0OK_As0X386io",
+            authDomain: "oryangcompany.firebaseapp.com",
+            projectId: "oryangcompany",
+            storageBucket: "oryangcompany.appspot.com",
+            messagingSenderId: "39452497785",
+            appId: "1:39452497785:web:79ccc25b73be2f819781a8"
+        };
+    
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+<div class="mt-3">
+    <div>
+        <div class="title sel-p"><p>로그인</p></div>
+        <div class="title unsel-p"><p>계정 만들기</p></div>
+    </div>
+</div>
+<div class="container_input">
+    <div class="cbla">
+        <div class="input">
+            <input type="text" class="form-control" placeholder="email" id="email">
+        </div>
+        <div class="input">
+            <input type="password" class="form-control" placeholder="password" id="pw">
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <button type="submit" class="primary" id="Log_In">log-in</button>
+        </div>
+    </div>  
+</div>
+
+
+
+    <script>
+        var email = $('#email').val();
+        var password = $('#pw').val();
+        
+        $('#Log_In').click(function(){
+            firebase.auth().signInWithEmailAndPassword(email, password).then((result)=>{
+                console.log(result)
+            })
+        })
+    </script>
+</body>
+</html>
