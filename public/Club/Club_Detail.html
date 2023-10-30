@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="Club_Detail.css">
+    <!-- slick -->
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <!-- firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
@@ -50,7 +56,7 @@
 
     <div class="container">
         <div class="mt-1">
-            <div class="photo"><img src="" alt=""></div>
+            <div class="photo"><img id="club_image" src=""></div>
             <p class="dongari-title"></p>
             <p class="dongari-exple"></p>
         </div>
@@ -63,16 +69,16 @@
             <p class="sg-title">실적규모</p>
             <div class="sg-container">    
                 <div class="day-selc">
-                    <p class="day-over">9월</p>
-                    <p class="day-main">2021년 10월</p>
-                    <p class="day-over">11월</p>
+                    <a class="day-over" id="before-over"></a>
+                    <p class="day-main"></p>
+                    <a class="day-over" id="next-over"></a>
                 </div>
                 <div class="sg-box-container">
-                    <iframe id="performance_frame" src="Club_Performance_Scale.html" scrolling="no" width="875" height="400" style="border:none;"></iframe>
+                    <iframe id="performance_frame" src="/Club/Club_Performance_Scale.html?id=Finder&year=2023" scrolling="no" width="875" height="400" style="border:none;"></iframe>
                 </div>
             </div>
            <div class="sg-sum-box">
-                <p class="sg-sum">1,6122,0000원</p>
+                <p class="sg-sum"></p>
             </div>        
         </div>
         <div class="mt-4">
@@ -84,31 +90,21 @@
                 <p  class="act-years-p">2022</p>
             </div>
             <div class="act-container">
-                <div class="act-option">
-                    <div class="act-option-box">
-                        <div class="act-photo-box">
-                            <img src="" alt="사진" class="act-photo">
-                        </div>
-                        <p class="act-name">대회</p>
-                        <p class="act-explain">이 대회는 어쩌구저쩌구
-                            대전시에서 이번에 열리는 대회입니다dddd</p>
+                <!-- Slider main container -->
+                <div class="swiper">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                    <!-- Slides -->
                     </div>
-                    <div class="act-option-box">
-                        <div class="act-photo-box">
-                            <img src="" alt="사진" class="act-photo">
-                        </div>
-                        <p class="act-name">대회</p>
-                        <p class="act-explain">이 대회는 어쩌구저쩌구
-                            대전시에서 이번에 열리는 대회입니다dddd</p>
-                    </div>
-                    <div class="act-option-box">
-                        <div class="act-photo-box">
-                            <img src="" alt="사진" class="act-photo">
-                        </div>
-                        <p class="act-name">대회</p>
-                        <p class="act-explain">이 대회는 어쩌구저쩌구
-                            대전시에서 이번에 열리는 대회입니다dddd</p>
-                    </div>
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination"></div>
+                
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                
+                    <!-- If we need scrollbar -->
+                    <div></div>
                 </div>
             </div>
         </div>
@@ -116,12 +112,61 @@
     <script>
         const db = firebase.firestore();
         var query_string = new URLSearchParams(window.location.search);
-        document.getElementById("performance_frame").src = '/Club/Club_Performance_Scale.html?id=' + query_string.get('id');
+        var year = query_string.get('scale_year')
+        $('.day-main').html(year+'년')
+        document.getElementById("before-over").href = '/Club/Club_Detail.html?id='+query_string.get('id')+'&scale_year='+(Number(query_string.get('scale_year'))-1)+'&performance_year='+query_string.get('performance_year');        
+        document.getElementById("next-over").href = '/Club/Club_Detail.html?id='+query_string.get('id')+'&scale_year='+(Number(query_string.get('scale_year'))+1)+'&performance_year='+query_string.get('performance_year');
+        document.getElementById("before-over").innerText = (Number(year-1))+'년';        
+        document.getElementById("next-over").innerText = (Number(year)+1)+'년';
+        document.getElementById("performance_frame").src='/Club/Club_Performance_Scale.html?id='+query_string.get('id')+'&scale_year='+query_string.get('scale_year')+'&performance_year='+query_string.get('performance_year')+'/';
         db.collection('club').doc(query_string.get('id')).get().then((result)=>{
             console.log(result);
+            document.getElementById("club_image").src = result.data().url;
             $('.dongari-title').html(result.data().club_name)
             $('.dongari-exple').html(result.data().long_content)
             $('.cg-exple').html(result.data().purse)
+        })
+        db.collection('club').doc(query_string.get('id')).collection('performance_' + year).get().then((result)=>{
+            var sum = 0;
+            result.forEach((doc)=>{
+                sum = Number(sum) + Number(doc.data().performance_scale);
+            })
+            $('.sg-sum').html(sum+'원')
+        })
+    </script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+            // Optional parameters
+            loop: true,
+
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+    <script>
+        db.collection('club').get().then((result)=>{
+            result.forEach((doc)=>{
+            console.log(doc.data())
+            var temp = `<div class="swiper-slide"><div class="act-whole-box">
+                <div class="act-option-box">
+                    <div class="act-photo-box">
+                        <img src="${doc.data().url}" alt="사진" class="act-photo">
+                    </div>
+                    <p class="act-name">대회</p>
+                    <p class="act-explain">이 대회는 어쩌구저쩌구
+                        대전시에서 이번에 열리는 대회입니다dddd</p>
+                </div></div>
+        </div>`;
+            $('.swiper-wrapper').append(temp)
+            })
         })
     </script>
 </body>
