@@ -197,6 +197,11 @@ align-items: center;
 display: flex;
 }
 
+.account-box:active {
+  background-color: #6BA3FF;
+  color: white;
+}
+
 .user-nickname {
 color: black;
 float: left;
@@ -237,6 +242,7 @@ color: white;
 border-radius: 0.1rem;
 font-size: 1rem;
 width: 16rem;
+margin: 0 auto;
 }
 
 .result-exchange::placeholder {
@@ -251,7 +257,7 @@ margin: 0 1rem;
 width: min-content;
 height: auto;
 
-margin-left: 2rem;
+margin-right: 2rem;
 }
 
 .change-button {
