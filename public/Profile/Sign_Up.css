@@ -50,7 +50,7 @@ p {
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     overflow: hidden;
-    margin: 0 auto 0 auto;
+    margin: 1rem auto 0 auto;
 }
 
 #email-new {
