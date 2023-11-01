@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="Club_Detail.css">
-    <!-- slick -->
+    <!-- swiper -->
     <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
@@ -31,6 +31,14 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
     </script>
+    <script>
+        function popup(){
+            var url = "/Profile/Log_In.html";
+            var name = "Log_In";
+            var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+            window.open(url, name, option);
+        }
+    </script>
 </head>
 <body>
     <div class="head-bar-section">
@@ -38,19 +46,19 @@
         <a href="#"><p class="logoname">오량 주식 컴퍼니</p></a>
         <input type="text" class="search-bar">
         <div class="user-convein">
-          <button type="submit" class="head-bar search-button" ></button>
-          <button type="button" class="head-bar favorite-button"></button>
-          <button type="button" class="head-bar alarm-button"></button>
-          <a href="#"><button type="button" class="head-bar profile-button"></button></a>
+            <button type="submit" class="head-bar search-button" ><img class="head-button" src="https://firebasestorage.googleapis.com/v0/b/oryangcompany.appspot.com/o/KakaoTalk_20231101_051315787.png?alt=media&token=dd90782f-3e0d-489d-9d5c-a739f303a26f"></button>
+            <button type="button" class="head-bar favorite-button"><img  class="head-button" src="https://firebasestorage.googleapis.com/v0/b/oryangcompany.appspot.com/o/KakaoTalk_20231101_051315787_01.png?alt=media&token=b4e3eacc-f54c-4a98-ae32-74859da7f8b0"></button>
+            <button type="button" class="head-bar alarm-button"><img  class="head-button" src="https://firebasestorage.googleapis.com/v0/b/oryangcompany.appspot.com/o/KakaoTalk_20231101_051315787_02.png?alt=media&token=4c43b60a-fc3b-4dca-9354-5ef26e43b244"></button>
+            <a href="#"><button type="button" class="head-bar profile-button"><img  class="head-button" src="https://firebasestorage.googleapis.com/v0/b/oryangcompany.appspot.com/o/KakaoTalk_20231101_051315787_03.png?alt=media&token=901103b5-73cf-438d-9508-f1345f4ba82e"></button></a>
         </div> 
     </div>
     
     <div class="menu-bar-section">
-        <a href="#"><p class="menu">소식</p> </a>
-        <a href="#"><p class="menu">거래</p> </a>
-        <a href="#"><p class="menu" style="color: #0060FF;">동아리 소개</p> </a>
-        <a href="#"><p class="menu">경매</p> </a>
-        <a href="#"><p class="menu">채팅</p> </a>
+        <a href="/Main/Main_Main.html" target = "_parent"><p class="menu">메인</p> </a>
+        <a href="/Trade/Trade_Main.html" target = "_parent"><p class="menu">거래</p> </a>
+        <a href="/Club/Club_Main.html" target = "_parent"><p class="menu" style="color: #0060FF;">동아리 소개</p> </a>
+        <a href="/Auction/Auction_Main.html" target = "_parent"><p class="menu">경매</p> </a>
+        <a href = "javascript:popup()" target = "_parent"><p class="menu">로그인</p> </a>
     </div>
 
 
@@ -104,7 +112,7 @@
                     <div class="swiper-button-next"></div>
                 
                     <!-- If we need scrollbar -->
-                    <div></div>
+                    <div class="swiper-scrollbar"></div>
                 </div>
             </div>
         </div>
@@ -155,15 +163,28 @@
         db.collection('club').get().then((result)=>{
             result.forEach((doc)=>{
             console.log(doc.data())
-            var temp = `<div class="swiper-slide"><div class="act-whole-box">
+            var temp = `<div class="swiper-slide">
                 <div class="act-option-box">
+                    <p class="act-name">대회</p>
+                    <p class="act-explain">이 대회는 어쩌구저쩌구대전시에서 이번에 열리는 대회입니다dddd</p>
                     <div class="act-photo-box">
                         <img src="${doc.data().url}" alt="사진" class="act-photo">
                     </div>
-                    <p class="act-name">대회</p>
-                    <p class="act-explain">이 대회는 어쩌구저쩌구
-                        대전시에서 이번에 열리는 대회입니다dddd</p>
-                </div></div>
+                    <div class="act-contest-box">
+                        <p class="act-explain-contest">주체</p>
+                        <p class="act-explain-contest">수상</p>
+                        <p class="act-explain-contest">아이디어</p>
+                        <p class="act-explain-contest">상금</p>
+                        <p class="act-explain-contest">참여인원</p>
+                    </div>
+                    <div class="act-contest-box2">
+                        <p class="act-explain-contest">대전대신고등학교</p>
+                        <p class="act-explain-contest">동상</p>
+                        <p class="act-explain-contest">~~를 이용한 ~~</p>
+                        <p class="act-explain-contest">10000000</p>
+                        <p class="act-explain-contest">김민호, 최성민, 천혜성, 정창영</p>   
+                    </div>
+                </div>
         </div>`;
             $('.swiper-wrapper').append(temp)
             })

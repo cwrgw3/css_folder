@@ -21,25 +21,54 @@ p {
   white-space: nowrap;
 }
 /* 하나의 product를 감싸서 가운데 정렬을 하기 위한 도구 */
-  .box {
-    display: flex;
-    justify-content: center;
-  }
+/*  */
 
-.product {
-    margin: 0.375rem 2rem;
-    width: 56.25rem;
-    height: 12rem;
-    background: #fcfcfc;
 
-    display: flex;
-    align-items: center;
-  }
+
+
+.auction {
+  margin: 0.375rem 2rem;
+  width: 56.25rem;
+  height: 12rem;
+  background: #fcfcfc;
+
+  display: flex;
+  align-items: center;
+
+  border-bottom: #6BA3FF solid 2px;
+}
+
+.title {
+  color: #006aff;
+  font-size: 2.4rem;
+  font-weight: 600;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  white-space: nowrap;
+}
 
 .flex-grow-1 {
   width: 100%;
 }
 
+.short-explain {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+
+.long-explain {
+  margin-top: 1rem;
+  color: #00000088;
+
+  width: 40rem;
+  height: 2.8rem;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 
 /* 상품에 대한 설명 */
 .content {
@@ -49,64 +78,50 @@ p {
 
   flex-direction: column;
   display: block;
-  padding: 0.5rem 0 0.5rem 2rem;
+  padding: 0.5rem 0 0.5rem 0;
   margin-right: 3rem;
 }
 
-.product .price {
-    color: #9A9A9A;
-    font-family: 'Istok Web';
-    font-size: 1.375rem;
-
-    padding: 0.5rem 0 0.5rem 2rem;
-    margin: 0;
-}
-/* 상품의 이름 */
-.product .title {
-    color: #000;
-    font-family: 'Istok Web';
-    font-size: 2rem;
-
-    flex-direction: column;
-    padding: 0 0 0 2rem;
-    margin-right: 6rem;
-}
-
-  /* 옥션에 들어가는 물품 사진 */
+/* 옥션에 들어가는 물품 사진 */
 .photo {
-    border-radius: 1.5rem;
-    background: transparent;
-    width: 14rem;
-    height: 10rem;
+  border-radius: 1.5rem;
+  background: transparent;
+  width: 14rem;
+  height: 10rem;
 
-    float: left;
+  float: left;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 1rem;
-    overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right  : 1rem;
+  overflow: hidden;
 }
 
 .img {
-  max-height: 100%;
-  width: auto;
-  display: block;
+max-height: 100%;
+width: auto;
+display: block;
 }
 
 /* 항목이 추가되는 부분 전체 */
 .container {
-  background-color: #efeff7;
-  width:min-content;
-  height: inherit;
+background-color: transparent;
+width:fit-content;
 
-  margin: 5rem auto 0 auto;
-  overflow-y: scroll;
+margin: 5rem auto 0 auto;
+overflow-y: scroll;
+border: #6BA3FF88 solid 2px;
+border-radius: 2rem;
 }
 
 .container::-webkit-scrollbar {
-  display: none;
+display: none;
 }
+
+
+
+
 
 /* 헤드바------------------ */
 
@@ -159,6 +174,7 @@ p {
   height: 42px;
 
   background-color: #efefef;
+  border-radius: 4px;
   overflow: hidden;
   margin-right: 8rem!important;
 }
@@ -167,14 +183,14 @@ p {
   width: 42px;
   height: 42px;
 
-  background-color: #000;
+  background-color: transparent;
 }
 
 .alarm-button {
   width: 42px;
   height: 42px;
 
-  background-color: #000;
+  background-color: transparent;
 }
 
 .profile-button {
@@ -184,6 +200,11 @@ p {
   border-radius: 50%;
 
   background-color: #6BA3FF;
+}
+
+.head-button {
+  height: 42px;
+  pointer-events: none;
 }
 
 .head-bar {

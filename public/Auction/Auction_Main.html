@@ -8,29 +8,37 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Istok+Web&display=swap" rel="stylesheet">
+  <script>
+    function popup(){
+        var url = "/Profile/Log_In.html";
+        var name = "Log_In";
+        var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+        window.open(url, name, option);
+    }
+  </script>
 </head>
 <body>
   <div class="head-bar-section">
     <a href="#"><img class="logo" src="https://firebasestorage.googleapis.com/v0/b/oryangcompany.appspot.com/o/1.png?alt=media&token=06f5bd93-afa6-44d5-bce3-77d6e6bb835b&_gl=1*1pykbqg*_ga*OTEyMjg3NjQwLjE2OTc4NDkwNDk.*_ga_CW55HF8NVT*MTY5Nzg2Mjc2OC40LjEuMTY5Nzg2OTQ4NS4xNC4wLjA"></a>
     <a href="#"><p class="logoname">오량 주식 컴퍼니</p></a>
-    <input type="text" class="search-bar">
+    <input type="text" class="search-bar">      
     <div class="user-convein">
-      <button type="submit" class="head-bar search-button" ></button>
-      <button type="button" class="head-bar favorite-button"></button>
-      <button type="button" class="head-bar alarm-button"></button>
-      <a href="#"><button type="button" class="head-bar profile-button"></button></a>
+      <button type="submit" class="head-bar search-button" ><img class="head-button" src="https://firebasestorage.googleapis.com/v0/b/oryangcompany.appspot.com/o/KakaoTalk_20231101_051315787.png?alt=media&token=dd90782f-3e0d-489d-9d5c-a739f303a26f"></button>
+      <button type="button" class="head-bar favorite-button"><img  class="head-button" src="https://firebasestorage.googleapis.com/v0/b/oryangcompany.appspot.com/o/KakaoTalk_20231101_051315787_01.png?alt=media&token=b4e3eacc-f54c-4a98-ae32-74859da7f8b0"></button>
+      <button type="button" class="head-bar alarm-button"><img  class="head-button" src="https://firebasestorage.googleapis.com/v0/b/oryangcompany.appspot.com/o/KakaoTalk_20231101_051315787_02.png?alt=media&token=4c43b60a-fc3b-4dca-9354-5ef26e43b244"></button>
+      <a href="#"><button type="button" class="head-bar profile-button"><img  class="head-button" src="https://firebasestorage.googleapis.com/v0/b/oryangcompany.appspot.com/o/KakaoTalk_20231101_051315787_03.png?alt=media&token=901103b5-73cf-438d-9508-f1345f4ba82e"></button></a>
     </div> 
   </div>
 
   <div class="menu-bar-section">
-    <a href="#"><p class="menu">소식</p> </a>
-    <a href="#"><p class="menu">거래</p> </a>
-    <a href="#"><p class="menu">동아리 소개</p> </a>
-    <a href="#"><p class="menu" style="color: #0060FF;">경매</p> </a>
-    <a href="#"><p class="menu">채팅</p> </a>
+    <a href="/Main/Main_Main.html" target = "_parent"><p class="menu">메인</p> </a>
+    <a href="/Trade/Trade_Main.html" target = "_parent"><p class="menu">거래</p> </a>
+    <a href="/Club/Club_Main.html" target = "_parent"><p class="menu">동아리 소개</p> </a>
+    <a href="/Auction/Auction_Main.html" target = "_parent"><p class="menu" style="color: #0060FF;">경매</p> </a>
+    <a href = "javascript:popup()" target = "_parent"><p class="menu">로그인</p> </a>
   </div>
 
-  <div class="container mt-3"></div>
+  <div class="container"></div>
   <!-- firebase -->
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
@@ -61,14 +69,14 @@
     db.collection('product').get().then((result)=>{
       result.forEach((doc)=>{
         console.log(doc.data())
-        var temp = `<div class="box"><div class="product">
+        var temp = `<div class="auction">
       <div class="flex-grow-1 p-4">
-        <div class="photo"><img class="img" src="${doc.data().url}"></div>
-        <p class="title"><a href="/Auction/Auction_Detail.html?id=${doc.data().club_name}">${doc.data().title}</a></p>
+        <div class="photo">
+          <img class="img" src="${doc.data().url}"></div>
+        <p><a class="title" href="/Auction/Auction_Detail.html?id=${doc.data().club_name}">${doc.data().title}</a></p>
         <p class="price">${doc.data().price} Point</p>
         <p class="content">${doc.data().content}</p>
-      </div></div>
-    </div>`;
+      </div></div>`;
         $('.container').append(temp)
       })
     })

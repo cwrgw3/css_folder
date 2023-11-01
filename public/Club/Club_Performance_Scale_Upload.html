@@ -37,8 +37,9 @@
     
   <div class="container mt-3">
     <input type="text" class="form-control mt-2" id="club_name" placeholder="club_name">
+    <input type="date" class="form-control mt-2" id="upload_date" placeholder="upload_date">
     <input type="text" class="form-control mt-2" id="performance_name" placeholder="performance_name">
-    <input type="text" class="form-control mt-2" id="performance_scale" placeholder="performance_scale">
+    <input type="number" class="form-control mt-2" id="performance_scale" placeholder="performance_scale">
     <button class="btn btn-danger mt-3" id="send">올리기</button>
   </div>
 
@@ -48,10 +49,12 @@
     $('#send').click(function(){
         var club_name = $('#club_name').val()
         var upload = { 
-            performance_name : $('#performance_name').val(),
-            performance_scale : $('#performance_scale').val()
+          performance_name : $('#performance_name').val(),
+          performance_scale : $('#performance_scale').val(),
+          upload_date : $('#upload_date').val()
         }
-        db.collection('club').doc(club_name).collection('performance').doc(upload.performance_name).set(upload)
+        const parts = upload.upload_date.split("-");
+        db.collection('club').doc(club_name).collection('performance_' + parts[0]).doc(upload.performance_name).set(upload)
     });
   </script>
 </body>

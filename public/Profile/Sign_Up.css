@@ -8,11 +8,11 @@ a {
     width: auto;
     height: auto;
     display: flex;
+    text-decoration: none;
 }
 
 p {
-    text-decoration: none;
-    list-style: none;
+    list-style: none;  
 }
 
 .form-control {
@@ -24,7 +24,6 @@ p {
     width: 20rem;
     height: 3rem;
     margin: 1rem auto;
-    padding-left: -10px;
 }
 
 .primary {
@@ -51,7 +50,7 @@ p {
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     overflow: hidden;
-    margin: 7rem auto 0 auto;
+    margin: 0 auto 0 auto;
 }
 
 #email-new {

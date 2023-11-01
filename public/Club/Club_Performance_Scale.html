@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="Club_Performance_Scale.css">
+    <link rel="stylesheet" href="Club_Detail.css">
         <!-- firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
@@ -27,12 +27,13 @@
       </script>
 </head>
 <body>
-  <div class="container mt-3"></div>
+  <div class="mt-3"></div>
     <script>
         const db = firebase.firestore();
         var query_string = new URLSearchParams(window.location.search);
-
-        db.collection('club').doc(query_string.get('id')).collection('performance').get().then((result)=>{
+        var year = query_string.get('scale_year')
+        console.log(year)
+        db.collection('club').doc(query_string.get('id')).collection('performance_' + year).get().then((result)=>{
           result.forEach((doc)=>{
             var temp = `<div class="sg-box">
                         <p class="sg-box-name">${doc.data().performance_name}</p>

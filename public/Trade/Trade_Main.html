@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyCrFuy6g93AKQUWW_mWDI0OK_As0X386io",
+            authDomain: "oryangcompany.firebaseapp.com",
+            projectId: "oryangcompany",
+            storageBucket: "oryangcompany.appspot.com",
+            messagingSenderId: "39452497785",
+            appId: "1:39452497785:web:79ccc25b73be2f819781a8"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+<body>
+    <input class="form-control mt-2" type="text" id="acount" placeholder="계좌">
+    <input class="form-control mt-2" type="number" id="money" placeholder="금액">
+    <button class="btn btn-danger mt-3" id="send">송금하기</button>
+    <p id="test"></p>
+    <script>
+        const db = firebase.firestore();
+        firebase.auth().onAuthStateChanged((user)=>{
+            if(user) {
+                var point = 0;
+                db.collection('user').doc(user.uid).get().then((result)=>{
+                    point = result.data().point;
+                    $('#test').html(point)
+                })
+            }
+        })
+    </script>
+    <script>
+        $('#send').click(function(){
+            firebase.auth().onAuthStateChanged((user)=>{
+                if(user){
+                    db.collection('user').doc(user.uid).get().then((result)=>{
+                        var point = result.data().point;
+                        var money = $('#money').val();
+                        var acount = $('#acount').val();
+                        if(point < money){
+                            alert('당신이 가진 point 보다 많습니다.');
+                            location.href='/Trade/Trade_Main.html';
+                        }
+                        else{
+                            db.collection('user').doc(acount).get()
+                                .then((result_1)=>{
+                                    sender_point = Number(point) - Number(money);
+                                    var receiver_point = result_1.data().point
+                                    receiver_point = Number(receiver_point) + Number(money);
+                                    db.collection('user').doc(user.uid).update({ point : sender_point})
+                                    db.collection('user').doc(acount).update({ point : receiver_point})
+                                    alert('point를 성공적으로 전달했습니다!');
+                                })
+                                .catch((error)=>{
+                                    alert('계좌가 존재하지 않습니다.');
+                                    location.href='/Trade/Trade_Main.html';
+                                })
+                        }
+                    })
+                }else{
+                    alert('로그인 되지 않았습니다.');   
+                }
+            })
+        })
+    </script>
+    <script>
+        class Queue {
+            constructor() {
+                this._arr = [];
+            }
+            enqueue(item) {
+                this._arr.push(item);
+            }
+            dequeue() {
+                return this._arr.shift();
+            }
+        }
+    </script>
+</body>
+</html>
