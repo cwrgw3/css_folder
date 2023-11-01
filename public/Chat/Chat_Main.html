@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=0">
+  <title>Document</title>
+  <link href="Club_Main.css" rel = "stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Istok+Web&display=swap" rel="stylesheet">
+  <script>
+    function popup(){
+        var url = "/Profile/Log_In.html";
+        var name = "Log_In";
+        var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+        window.open(url, name, option);
+    }
+  </script>
+  <!-- firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>   
+  
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyCrFuy6g93AKQUWW_mWDI0OK_As0X386io",
+      authDomain: "oryangcompany.firebaseapp.com",
+      projectId: "oryangcompany",
+      storageBucket: "oryangcompany.appspot.com",
+      messagingSenderId: "39452497785",
+      appId: "1:39452497785:web:79ccc25b73be2f819781a8"
+    };
+  
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</head>
+<body>
+  <div class="head-bar-section">
+    <a href="#"><img class="logo" src="https://firebasestorage.googleapis.com/v0/b/oryangcompany.appspot.com/o/1.png?alt=media&token=06f5bd93-afa6-44d5-bce3-77d6e6bb835b&_gl=1*1pykbqg*_ga*OTEyMjg3NjQwLjE2OTc4NDkwNDk.*_ga_CW55HF8NVT*MTY5Nzg2Mjc2OC40LjEuMTY5Nzg2OTQ4NS4xNC4wLjA"></a>
+    <a href="#"><p class="logoname">오량 주식 컴퍼니</p></a>
+    <input type="text" class="search-bar">
+    <div class="user-convein">
+      <button type="submit" class="head-bar search-button" ></button>
+      <button type="button" class="head-bar favorite-button"></button>
+      <button type="button" class="head-bar alarm-button"></button>
+      <a href="#"><button type="button" class="head-bar profile-button"></button></a>
+    </div> 
+  </div>
+
+  <div class="menu-bar-section">
+    <a href="/Main/Main_Main.html" target = "_parent"><p class="menu">메인</p> </a>
+    <a href="/Trade/Trade_Main.html" target = "_parent"><p class="menu">거래</p> </a>
+    <a href="/Club/Club_Main.html" target = "_parent"><p class="menu" style="color: #0060FF;">동아리 소개</p> </a>
+    <a href="/Auction/Auction_Main.html" target = "_parent"><p class="menu">경매</p> </a>
+    <a href = "javascript:popup()" target = "_parent"><p class="menu">로그인</p> </a>
+  </div>
+
+  
+</body>
+</html>
